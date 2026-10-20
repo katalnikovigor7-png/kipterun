@@ -1,12 +1,9 @@
 (function () {
   "use strict";
 
-  /* Список фотографий лежит в файле photos.js, здесь ничего менять не нужно. */
-
   const ALL = "Все";
   const SOURCE = window.PHOTOS || [];
 
-  // Приводим список к виду [{ file, category }]
   const PHOTOS = [];
   if (Array.isArray(SOURCE)) {
     SOURCE.forEach(function (file) { PHOTOS.push({ file: file, category: "" }); });
@@ -24,23 +21,20 @@
   const lbImg = document.getElementById("lbImg");
 
   let activeCategory = ALL;
-  let list = PHOTOS;   // какие фото сейчас листаются в просмотре
+  let list = PHOTOS;   
   let index = 0;
 
-  // Пробелы, кириллица и # в именах файлов превращаются в безопасный адрес
   function url(file) {
     if (/^https?:\/\//i.test(file)) return file;
     return file.split("/").map(encodeURIComponent).join("/");
   }
 
-  /* ---------- Фильтры ---------- */
   function renderFilters() {
     const cats = [];
     PHOTOS.forEach(function (p) {
       if (p.category && cats.indexOf(p.category) === -1) cats.push(p.category);
     });
 
-    // Если тема всего одна (или их нет), фильтры не нужны
     if (cats.length < 2) {
       filtersEl.hidden = true;
       return;
@@ -63,7 +57,6 @@
     });
   }
 
-  /* ---------- Галерея ---------- */
   function renderGallery() {
     const shown = PHOTOS.filter(function (p) {
       return activeCategory === ALL || p.category === activeCategory;
@@ -97,7 +90,6 @@
     });
   }
 
-  /* ---------- Просмотр на весь экран ---------- */
   function show(i) {
     index = (i + list.length) % list.length;
     lbImg.src = url(list[index].file);
@@ -107,7 +99,6 @@
     dlg.querySelector(".lb-prev").hidden = single;
     dlg.querySelector(".lb-next").hidden = single;
 
-    // Заранее подгружаем следующий снимок, чтобы листать без паузы
     if (!single) new Image().src = url(list[(index + 1) % list.length].file);
   }
 
@@ -125,8 +116,7 @@
   dlg.addEventListener("close", function () {
     document.body.classList.remove("lb-open");
   });
-
-  // Клик по тёмному фону закрывает просмотр
+  
   dlg.addEventListener("click", function (e) {
     if (!e.target.closest("img, button")) dlg.close();
   });
@@ -136,7 +126,6 @@
     if (e.key === "ArrowRight") show(index + 1);
   });
 
-  // Листание свайпом на телефоне
   let touchX = null;
   dlg.addEventListener("touchstart", function (e) {
     touchX = e.changedTouches[0].clientX;
@@ -148,7 +137,6 @@
     if (Math.abs(dx) > 50) show(dx > 0 ? index - 1 : index + 1);
   }, { passive: true });
 
-  /* ---------- Запуск ---------- */
   document.getElementById("year").textContent = new Date().getFullYear();
   renderFilters();
   renderGallery();

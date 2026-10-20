@@ -120,7 +120,7 @@ p { margin: 0 0 1.1em; }
   margin: 0 0 0.6em;
   font-family: var(--font-display);
   font-weight: 500;
-  font-size: clamp(1.9rem, 4.6vw, 3.4rem);
+  font-size: clamp(3.4rem, 4.6vw, 5.5rem);
   line-height: 1.1;
   letter-spacing: -0.03em;
 }

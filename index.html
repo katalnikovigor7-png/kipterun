@@ -8,12 +8,14 @@
   <meta property="og:title" content="Имя Фамилия — фотограф">
   <meta property="og:description" content="Портфолио фотографа: пейзаж, портрет, улица.">
   <meta property="og:type" content="website">
-  <meta name="theme-color" content="#120e0b">
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='14' fill='%23ff8a1f'/%3E%3Ccircle cx='16' cy='16' r='6' fill='%23120e0b'/%3E%3C/svg%3E">
+  <meta name="theme-color" content="#110d0a">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='14' fill='%23ff8a1f'/%3E%3Ccircle cx='16' cy='16' r='6' fill='%23110d0a'/%3E%3C/svg%3E">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;600;800&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;1,6..72,400&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;1,6..72,400&display=swap">
   <link rel="stylesheet" href="style.css">
+  <!-- photos.js: список ваших фотографий. script.js: работа галереи -->
+  <script src="photos.js" defer></script>
   <script src="script.js" defer></script>
 </head>
 <body>
@@ -23,6 +25,7 @@
     <a class="brand" href="#top">Имя Фамилия</a>
     <nav aria-label="Основное меню">
       <a href="#works">Работы</a>
+      <a href="#shoots">Съёмки</a>
       <a href="#about">Обо мне</a>
       <a href="#contact">Контакты</a>
     </nav>
@@ -30,22 +33,50 @@
 
   <main>
 
-    <section class="hero" id="top">
-      <div class="hero-text">
-        <h1>Имя<br>Фамилия</h1>
-        <p class="lead">Снимаю людей, города и пейзажи. Больше всего люблю время, когда свет становится тёплым.</p>
-        <a class="btn" href="#works">Смотреть работы</a>
-      </div>
-      <figure class="hero-photo" id="heroPhoto"></figure>
+    <section class="intro" id="top">
+      <h1>Снимаю людей, города и пейзажи в тёплом свете.</h1>
     </section>
 
-    <section class="band" id="works" aria-labelledby="works-title">
-      <div class="band-head">
-        <h2 id="works-title">Работы</h2>
-        <div class="filters" id="filters" role="group" aria-label="Фильтр по темам"></div>
-      </div>
-      <div class="gallery" id="gallery"></div>
+    <section class="works" id="works" aria-label="Работы">
+      <div class="filters" id="filters" role="group" aria-label="Фильтр по темам"></div>
+      <div class="grid" id="gallery"></div>
       <noscript><p class="muted">Чтобы увидеть галерею, включите JavaScript в браузере.</p></noscript>
+    </section>
+
+    <section class="band shoots" id="shoots" aria-labelledby="shoots-title">
+      <div>
+        <h2 id="shoots-title">Все съёмки</h2>
+        <p class="lead">В портфолио собраны лучшие кадры. Остальные фотографии со съёмок лежат в облаке: откройте нужную папку, чтобы посмотреть или скачать снимки.</p>
+      </div>
+
+      <!--
+        Ссылки на облачное хранилище. Одна строка списка (<li>…</li>) равна одной ссылке.
+        Чтобы добавить ещё одну, скопируйте любой блок <li>…</li> целиком и поменяйте:
+          href        адрес папки в облаке
+          cloud-name  название съёмки
+          cloud-meta  где лежит (Яндекс Диск, Google Drive, Dropbox и т. д.)
+        Чтобы убрать ссылку, удалите её блок <li>…</li>.
+      -->
+      <ul class="cloud-list">
+        <li>
+          <a class="cloud-link" href="https://disk.yandex.ru/d/your-link" target="_blank" rel="noopener">
+            <span class="cloud-name">Свадьба, лето 2026</span>
+            <span class="cloud-meta">Яндекс Диск</span>
+          </a>
+        </li>
+        <li>
+          <a class="cloud-link" href="https://drive.google.com/drive/folders/your-link" target="_blank" rel="noopener">
+            <span class="cloud-name">Семейная съёмка</span>
+            <span class="cloud-meta">Google Drive</span>
+          </a>
+        </li>
+        <li>
+          <a class="cloud-link" href="https://www.dropbox.com/sh/your-link" target="_blank" rel="noopener">
+            <span class="cloud-name">Городская серия</span>
+            <span class="cloud-meta">Dropbox</span>
+          </a>
+        </li>
+      </ul>
     </section>
 
     <section class="band about" id="about" aria-labelledby="about-title">
@@ -57,7 +88,6 @@
         <!-- Замените тексты на свои -->
         <p>Снимаю больше десяти лет. Началось с отцовской плёночной камеры, а теперь это моя работа. В ней мне важнее всего свет и тот момент, когда человек перестаёт позировать.</p>
         <p>Работаю в студии и на выезде: портреты, семейные и свадебные съёмки, пейзажи, уличные серии. Фотографии отдаю в цвете и в чёрно-белом, ретушь включена.</p>
-        <p>Живу в вашем городе, но с удовольствием поеду туда, где интересный свет.</p>
       </div>
     </section>
 
@@ -89,7 +119,6 @@
     </button>
     <figure class="lb-figure">
       <img id="lbImg" alt="">
-      <figcaption id="lbCap"></figcaption>
     </figure>
     <button class="icon-btn lb-nav lb-next" type="button" aria-label="Следующее фото">
       <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7.5 4l6 6-6 6"/></svg>

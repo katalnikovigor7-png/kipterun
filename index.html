@@ -3,15 +3,98 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Игорь Катальников — фотограф</title>
+  <title>Имя Фамилия — фотограф</title>
+  <meta name="description" content="Портфолио фотографа: пейзаж, портрет, улица.">
+  <meta property="og:title" content="Имя Фамилия — фотограф">
+  <meta property="og:description" content="Портфолио фотографа: пейзаж, портрет, улица.">
+  <meta property="og:type" content="website">
+  <meta name="theme-color" content="#120e0b">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='14' fill='%23ff8a1f'/%3E%3Ccircle cx='16' cy='16' r='6' fill='%23120e0b'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;600;800&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;1,6..72,400&display=swap">
   <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
 </head>
 <body>
-  <h1>ИГорь Катальников</h1>
-  <p>Фотограф</p>
-  <div class="gallery">
-    <img src="photos/photo1.jpg" alt="Описание фото" loading="lazy">
-    <img src="photos/photo2.jpg" alt="Описание фото" loading="lazy">
-  </div>
+
+  <header class="topbar">
+    <!-- Замените на своё имя или название студии -->
+    <a class="brand" href="#top">Имя Фамилия</a>
+    <nav aria-label="Основное меню">
+      <a href="#works">Работы</a>
+      <a href="#about">Обо мне</a>
+      <a href="#contact">Контакты</a>
+    </nav>
+  </header>
+
+  <main>
+
+    <section class="hero" id="top">
+      <div class="hero-text">
+        <h1>Имя<br>Фамилия</h1>
+        <p class="lead">Снимаю людей, города и пейзажи. Больше всего люблю время, когда свет становится тёплым.</p>
+        <a class="btn" href="#works">Смотреть работы</a>
+      </div>
+      <figure class="hero-photo" id="heroPhoto"></figure>
+    </section>
+
+    <section class="band" id="works" aria-labelledby="works-title">
+      <div class="band-head">
+        <h2 id="works-title">Работы</h2>
+        <div class="filters" id="filters" role="group" aria-label="Фильтр по темам"></div>
+      </div>
+      <div class="gallery" id="gallery"></div>
+      <noscript><p class="muted">Чтобы увидеть галерею, включите JavaScript в браузере.</p></noscript>
+    </section>
+
+    <section class="band about" id="about" aria-labelledby="about-title">
+      <div class="about-photo">
+        <img src="photos/about.svg" width="800" height="1000" alt="Портрет фотографа" loading="lazy">
+      </div>
+      <div class="about-text">
+        <h2 id="about-title">Обо мне</h2>
+        <!-- Замените тексты на свои -->
+        <p>Снимаю больше десяти лет. Началось с отцовской плёночной камеры, а теперь это моя работа. В ней мне важнее всего свет и тот момент, когда человек перестаёт позировать.</p>
+        <p>Работаю в студии и на выезде: портреты, семейные и свадебные съёмки, пейзажи, уличные серии. Фотографии отдаю в цвете и в чёрно-белом, ретушь включена.</p>
+        <p>Живу в вашем городе, но с удовольствием поеду туда, где интересный свет.</p>
+      </div>
+    </section>
+
+    <section class="band contact" id="contact" aria-labelledby="contact-title">
+      <h2 id="contact-title">Контакты</h2>
+      <p class="lead">Съёмки, печать и сотрудничество. Напишите, и я отвечу в течение дня.</p>
+      <!-- Замените почту и ссылки на свои -->
+      <a class="mail" href="mailto:hello@example.com">hello@example.com</a>
+      <ul class="links">
+        <li><a href="https://instagram.com/your_name" target="_blank" rel="noopener">Instagram</a></li>
+        <li><a href="https://t.me/your_name" target="_blank" rel="noopener">Telegram</a></li>
+        <li><a href="https://behance.net/your_name" target="_blank" rel="noopener">Behance</a></li>
+      </ul>
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    <span>© <span id="year">2026</span> Имя Фамилия</span>
+    <span>Все фотографии защищены авторским правом</span>
+  </footer>
+
+  <dialog class="lightbox" id="lightbox" aria-label="Просмотр фотографии">
+    <button class="icon-btn lb-close" type="button" aria-label="Закрыть">
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 4l12 12M16 4L4 16"/></svg>
+    </button>
+    <button class="icon-btn lb-nav lb-prev" type="button" aria-label="Предыдущее фото">
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12.5 4L6.5 10l6 6"/></svg>
+    </button>
+    <figure class="lb-figure">
+      <img id="lbImg" alt="">
+      <figcaption id="lbCap"></figcaption>
+    </figure>
+    <button class="icon-btn lb-nav lb-next" type="button" aria-label="Следующее фото">
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7.5 4l6 6-6 6"/></svg>
+    </button>
+  </dialog>
+
 </body>
 </html>

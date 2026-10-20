@@ -34,7 +34,15 @@
   <main>
 
     <section class="intro" id="top">
-      <h1>Снимаю людей, города и пейзажи в тёплом свете.</h1>
+      <div class="intro-text">
+        <h1>Снимаю людей, города и пейзажи в тёплом свете.</h1>
+        <!-- Замените описание на своё: 2–3 предложения -->
+        <p class="intro-desc">Меня зовут Имя, я фотограф. Снимаю портреты, семейные истории, города и пейзажи, и мне важнее живой момент, чем постановка.</p>
+      </div>
+      <!-- Ваше фото: положите файл в папку photos и поменяйте путь в src, например photos/me.jpg -->
+      <figure class="intro-photo">
+        <img src="photos/me.svg" width="800" height="1000" alt="Портрет фотографа" fetchpriority="high">
+      </figure>
     </section>
 
     <section class="works" id="works" aria-label="Работы">
@@ -80,11 +88,8 @@
     </section>
 
     <section class="band about" id="about" aria-labelledby="about-title">
-      <div class="about-photo">
-        <img src="photos/about.svg" width="800" height="1000" alt="Портрет фотографа" loading="lazy">
-      </div>
+      <h2 id="about-title">Обо мне</h2>
       <div class="about-text">
-        <h2 id="about-title">Обо мне</h2>
         <!-- Замените тексты на свои -->
         <p>Снимаю больше десяти лет. Началось с отцовской плёночной камеры, а теперь это моя работа. В ней мне важнее всего свет и тот момент, когда человек перестаёт позировать.</p>
         <p>Работаю в студии и на выезде: портреты, семейные и свадебные съёмки, пейзажи, уличные серии. Фотографии отдаю в цвете и в чёрно-белом, ретушь включена.</p>

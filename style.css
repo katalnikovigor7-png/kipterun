@@ -90,8 +90,30 @@ p { margin: 0 0 1.1em; }
 .topbar nav a:hover { color: var(--amber); }
 
 /* ===== Вступление ===== */
+/* Три колонки, как в галерее: текст занимает две, фото ровно одну */
 .intro {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--gap);
+  align-items: end;
   padding: clamp(40px, 7vw, 88px) var(--pad) clamp(28px, 4vw, 48px);
+}
+
+.intro-text {
+  grid-column: 1 / span 2;
+  padding-right: clamp(16px, 6vw, 96px);
+}
+
+.intro-photo {
+  grid-column: 3;
+  margin: 0;
+}
+
+.intro-photo img {
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  background: var(--surface);
 }
 
 .intro h1 {
@@ -102,6 +124,14 @@ p { margin: 0 0 1.1em; }
   font-size: clamp(1.9rem, 4.6vw, 3.4rem);
   line-height: 1.1;
   letter-spacing: -0.03em;
+}
+
+.intro-desc {
+  max-width: 44ch;
+  margin: 1.4rem 0 0;
+  font-size: 1.2rem;
+  line-height: 1.55;
+  color: #d3c5b6;
 }
 
 /* ===== Фильтры ===== */
@@ -196,12 +226,6 @@ p { margin: 0 0 1.1em; }
   grid-template-columns: 0.7fr 1fr;
   gap: clamp(32px, 7vw, 112px);
   align-items: start;
-}
-
-.about-photo img {
-  width: 100%;
-  aspect-ratio: 4 / 5;
-  object-fit: cover;
 }
 
 .about-text { max-width: 54ch; }
@@ -365,7 +389,21 @@ p { margin: 0 0 1.1em; }
   .grid { grid-template-columns: repeat(2, 1fr); }
   .about,
   .shoots { grid-template-columns: 1fr; }
-  .about-photo { max-width: 400px; }
+
+  .intro {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+
+  .intro-text {
+    grid-column: auto;
+    padding-right: 0;
+  }
+
+  .intro-photo {
+    grid-column: auto;
+    max-width: 380px;
+  }
 }
 
 @media (max-width: 640px) {

@@ -19,18 +19,18 @@
    ============================================================ */
 window.PHOTOS = {
   "Пейзаж": [
-    "photos/01.svg",
-    "photos/04.svg",
-    "photos/07.svg"
+    "photos/01.jpg",
+    "photos/04.jpg",
+    "photos/07.jpg"
   ],
   "Портрет": [
-    "photos/02.svg",
-    "photos/05.svg",
-    "photos/08.svg"
+    "photos/02.jpg",
+    "photos/05.jpg",
+    "photos/08.jpg"
   ],
   "Улица": [
-    "photos/03.svg",
-    "photos/06.svg",
-    "photos/09.svg"
+    "photos/03.jpg",
+    "photos/06.jpg",
+    "photos/09.jpg"
   ]
 };

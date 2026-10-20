@@ -120,15 +120,16 @@ p { margin: 0 0 1.1em; }
   margin: 0 0 0.6em;
   font-family: var(--font-display);
   font-weight: 500;
-  font-size: clamp(3.4rem, 4.6vw, 5.5rem);
+  font-size: clamp(1.9rem, 4.6vw, 3.4rem);
   line-height: 1.1;
   letter-spacing: -0.03em;
 }
 
+/* Текст «Обо мне»: размер в 2 раза больше прежнего (было 1.2rem, стало 2.4rem) */
 .intro-text p {
-  max-width: 52ch;
-  font-size: 1.2rem;
-  line-height: 1.6;
+  max-width: 40ch;
+  font-size: 2.4rem;
+  line-height: 1.35;
   color: #d3c5b6;
 }
 
@@ -429,6 +430,12 @@ p { margin: 0 0 1.1em; }
     padding-right: 0;
   }
 
+  /* На планшете и телефоне такой крупный текст не помещается, поэтому он меньше */
+  .intro-text p {
+    max-width: 34ch;
+    font-size: 1.9rem;
+  }
+
   .intro-photo {
     grid-column: auto;
     max-width: 380px;
@@ -454,6 +461,8 @@ p { margin: 0 0 1.1em; }
 }
 
 @media (max-width: 640px) {
+  .intro-text p { font-size: 1.45rem; }
+
   .gear-grid {
     grid-template-columns: 1fr;
     gap: 32px;

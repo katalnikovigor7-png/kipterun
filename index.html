@@ -18,21 +18,23 @@
   <script src="photos.js" defer></script>
   <script src="script.js" defer></script>
 </head>
-<body>
+<body id="top">
 
   <header class="topbar">
     <!-- Замените на своё имя или название студии -->
     <a class="brand" href="#top">Имя Фамилия</a>
     <nav aria-label="Основное меню">
+      <a href="#about">Обо мне</a>
       <a href="#works">Работы</a>
       <a href="#shoots">Съёмки</a>
       <a href="#contact">Контакты</a>
+      <a href="#gear">Оборудование</a>
     </nav>
   </header>
 
   <main>
 
-    <section class="intro" id="top">
+    <section class="intro" id="about">
       <div class="intro-text">
         <h1>Обо мне</h1>
         <!-- Замените тексты на свои -->
@@ -93,10 +95,47 @@
       <!-- Замените почту и ссылки на свои -->
       <a class="mail" href="mailto:hello@example.com">hello@example.com</a>
       <ul class="links">
-        <li><a href="https://instagram.com/your_name" target="_blank" rel="noopener">Instagram</a></li>
         <li><a href="https://t.me/your_name" target="_blank" rel="noopener">Telegram</a></li>
-        <li><a href="https://behance.net/your_name" target="_blank" rel="noopener">Behance</a></li>
+        <li><a href="https://vk.com/your_name" target="_blank" rel="noopener">ВКонтакте</a></li>
       </ul>
+    </section>
+
+    <section class="band gear" id="gear" aria-labelledby="gear-title">
+      <h2 id="gear-title">Оборудование</h2>
+      <!--
+        Замените фото и списки на свои. Один блок <article> равен одной группе техники:
+        фото сверху, название группы и список под ним.
+        Чтобы добавить пункт в список, скопируйте строку <li>…</li>.
+        Своё фото положите в папку photos и поменяйте путь в src.
+      -->
+      <div class="gear-grid">
+        <article class="gear-item">
+          <img src="photos/gear-1.svg" width="800" height="800" alt="Фото камеры" loading="lazy">
+          <h3>Камеры</h3>
+          <ul>
+            <li>Основная камера: модель</li>
+            <li>Запасная камера: модель</li>
+          </ul>
+        </article>
+        <article class="gear-item">
+          <img src="photos/gear-2.svg" width="800" height="800" alt="Фото объектива" loading="lazy">
+          <h3>Объективы</h3>
+          <ul>
+            <li>24–70 мм f/2.8</li>
+            <li>35 мм f/1.4</li>
+            <li>85 мм f/1.8</li>
+          </ul>
+        </article>
+        <article class="gear-item">
+          <img src="photos/gear-3.svg" width="800" height="800" alt="Фото света" loading="lazy">
+          <h3>Свет и аксессуары</h3>
+          <ul>
+            <li>Накамерная вспышка: модель</li>
+            <li>Студийный свет: модель</li>
+            <li>Штатив и светоотражатели</li>
+          </ul>
+        </article>
+      </div>
     </section>
 
   </main>

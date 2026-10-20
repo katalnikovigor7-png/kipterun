@@ -306,6 +306,39 @@ p { margin: 0 0 1.1em; }
 
 .links a:hover { color: var(--amber); }
 
+/* ===== Оборудование: три колонки, как в галерее ===== */
+.gear-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 40px var(--gap);
+}
+
+.gear-item img {
+  width: 100%;
+  aspect-ratio: var(--tile-ratio);
+  object-fit: cover;
+  background: var(--surface);
+}
+
+.gear-item h3 {
+  margin: 1.2rem 0 0.6rem;
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: 1.15rem;
+  line-height: 1.3;
+}
+
+.gear-item ul {
+  margin: 0;
+  padding: 0 1rem 0 0;
+  list-style: none;
+  color: #d3c5b6;
+  font-size: 1.05rem;
+  line-height: 1.45;
+}
+
+.gear-item li + li { margin-top: 0.4rem; }
+
 /* ===== Подвал ===== */
 .footer {
   display: flex;
@@ -402,7 +435,32 @@ p { margin: 0 0 1.1em; }
   }
 }
 
+/* Меню из пяти пунктов переносится на вторую строку */
+@media (max-width: 720px) {
+  html { scroll-padding-top: 112px; }
+
+  .topbar {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.4rem;
+    padding-block: 12px;
+  }
+
+  .topbar nav {
+    flex-wrap: wrap;
+    gap: 0.2rem 1.1rem;
+    font-size: 0.95rem;
+  }
+}
+
 @media (max-width: 640px) {
+  .gear-grid {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+
+  .gear-item img { max-width: 420px; }
+
   .lb-figure { padding: 4rem 0.75rem 5.5rem; }
   .lb-figure img { max-height: calc(100dvh - 10rem); }
   .lb-nav { top: auto; bottom: 1rem; transform: none; }

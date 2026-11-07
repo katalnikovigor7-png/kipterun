@@ -137,6 +137,22 @@
     if (Math.abs(dx) > 50) show(dx > 0 ? index - 1 : index + 1);
   }, { passive: true });
 
+    const PHOTOS = [];
+  if (Array.isArray(SOURCE)) {
+    SOURCE.forEach(function (file) { PHOTOS.push({ file: file, category: "" }); });
+  } else {
+    Object.keys(SOURCE).forEach(function (category) {
+      SOURCE[category].forEach(function (file) {
+        PHOTOS.push({ file: file, category: category });
+      });
+    });
+  }
+
+  for (let i = PHOTOS.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [PHOTOS[i], PHOTOS[j]] = [PHOTOS[j], PHOTOS[i]];
+  }
+
   document.getElementById("year").textContent = new Date().getFullYear();
   renderFilters();
   renderGallery();

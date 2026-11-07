@@ -402,6 +402,19 @@ p { margin: 0 0 1.1em; }
 .lb-prev { left: 1rem; }
 .lb-next { right: 1rem; }
 
+.Telegram {
+  display: inline-block;
+  margin: 0 0 1.8rem;
+  border-bottom: 2px solid var(--amber);
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: clamp(1.2rem, 3vw, 1.6rem);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.Telegram:hover { color: var(--amber); }
+
 @media (max-width: 900px) {
   .grid { grid-template-columns: repeat(2, 1fr); }
   .shoots { grid-template-columns: 1fr; }

@@ -1,3 +1,4 @@
+/* ===== Цвета, шрифты и сетка: меняйте здесь ===== */
 :root {
   --bg: #110d0a;
   --surface: #1a1410;
@@ -10,8 +11,9 @@
   --font-display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
   --font-text: "Newsreader", Georgia, "Times New Roman", serif;
 
-  --gap: 6px;                 
-  --tile-ratio: 1 / 1;        
+  /* Сетка галереи */
+  --gap: 6px;                 /* расстояние между фото */
+  --tile-ratio: 1 / 1;        /* форма плитки: 1 / 1 квадрат, 4 / 5 вертикальная, 3 / 2 горизонтальная */
 
   --gutter: clamp(20px, 4vw, 48px);
   --maxw: 1360px;
@@ -48,6 +50,7 @@ p { margin: 0 0 1.1em; }
 
 .muted { color: var(--muted); }
 
+/* ===== Шапка ===== */
 .topbar {
   position: sticky;
   top: 0;
@@ -86,6 +89,8 @@ p { margin: 0 0 1.1em; }
 
 .topbar nav a:hover { color: var(--amber); }
 
+/* ===== Вступление ===== */
+/* Три колонки, как в галерее: текст занимает две, фото ровно одну */
 .intro {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -120,6 +125,7 @@ p { margin: 0 0 1.1em; }
   letter-spacing: -0.03em;
 }
 
+/* Текст «Обо мне»: размер в 2 раза больше прежнего (было 1.2rem, стало 2.4rem) */
 .intro-text p {
   max-width: 40ch;
   font-size: 2.4rem;
@@ -129,6 +135,7 @@ p { margin: 0 0 1.1em; }
 
 .intro-text p:last-child { margin-bottom: 0; }
 
+/* ===== Фильтры ===== */
 .works {
   padding: 0 var(--pad) clamp(64px, 9vw, 112px);
 }
@@ -160,6 +167,7 @@ p { margin: 0 0 1.1em; }
   border-bottom-color: var(--amber);
 }
 
+/* ===== Галерея: ровная сетка, одинаковые плитки ===== */
 .grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -198,6 +206,7 @@ p { margin: 0 0 1.1em; }
   outline-offset: -2px;
 }
 
+/* ===== Съёмки и контакты ===== */
 .band {
   padding: clamp(56px, 9vw, 112px) var(--pad);
   border-top: 1px solid var(--line);
@@ -219,6 +228,7 @@ p { margin: 0 0 1.1em; }
   align-items: start;
 }
 
+/* ===== Ссылки на облако ===== */
 .cloud-list {
   margin: 0;
   padding: 0;
@@ -297,6 +307,7 @@ p { margin: 0 0 1.1em; }
 
 .links a:hover { color: var(--amber); }
 
+/* ===== Оборудование: три колонки, как в галерее ===== */
 .gear-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -329,6 +340,7 @@ p { margin: 0 0 1.1em; }
 
 .gear-item li + li { margin-top: 0.4rem; }
 
+/* ===== Подвал ===== */
 .footer {
   display: flex;
   flex-wrap: wrap;
@@ -340,6 +352,7 @@ p { margin: 0 0 1.1em; }
   font-size: 0.95rem;
 }
 
+/* ===== Просмотр фото на весь экран ===== */
 .lightbox {
   width: 100vw;
   height: 100dvh;
@@ -402,19 +415,7 @@ p { margin: 0 0 1.1em; }
 .lb-prev { left: 1rem; }
 .lb-next { right: 1rem; }
 
-.Telegram {
-  display: inline-block;
-  margin: 0 0 1.8rem;
-  border-bottom: 2px solid var(--amber);
-  font-family: var(--font-display);
-  font-weight: 500;
-  font-size: clamp(1.2rem, 3vw, 1.6rem);
-  text-decoration: none;
-  transition: color 0.2s;
-}
-
-.Telegram:hover { color: var(--amber); }
-
+/* ===== Планшеты и телефоны ===== */
 @media (max-width: 900px) {
   .grid { grid-template-columns: repeat(2, 1fr); }
   .shoots { grid-template-columns: 1fr; }
@@ -429,6 +430,7 @@ p { margin: 0 0 1.1em; }
     padding-right: 0;
   }
 
+  /* На планшете и телефоне такой крупный текст не помещается, поэтому он меньше */
   .intro-text p {
     max-width: 34ch;
     font-size: 1.9rem;
@@ -440,7 +442,7 @@ p { margin: 0 0 1.1em; }
   }
 }
 
-
+/* Меню из пяти пунктов переносится на вторую строку */
 @media (max-width: 720px) {
   html { scroll-padding-top: 112px; }
 
@@ -475,6 +477,7 @@ p { margin: 0 0 1.1em; }
   .lb-next { right: calc(50% - 60px); }
 }
 
+/* ===== Без анимации для тех, кто её отключил ===== */
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   * { transition: none !important; }

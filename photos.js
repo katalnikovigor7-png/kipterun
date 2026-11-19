@@ -41,9 +41,9 @@ window.YANDEX_DISK = "https://disk.yandex.ru/d/Vu8sIPFObf4aEw";
    ------------------------------------------------------------ */
 window.PHOTOS = {
   "Пейзаж": [
-    "photos/01.JPG",
-    "photos/04.JPG",
-    "photos/07.JPG"
+    "photos/01.jpg",
+    "photos/04.jpg",
+    "photos/07.jpg"
   ],
   "Портрет": [
     "photos/02.jpg",

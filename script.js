@@ -266,6 +266,7 @@
       btn.setAttribute("aria-label", "Открыть фото " + (i + 1) + " из " + shown.length);
 
       const img = document.createElement("img");
+      img.crossOrigin = "anonymous";
       img.alt = "";
       img.loading = "lazy";
       img.decoding = "async";

@@ -17,7 +17,10 @@
 
 // Ссылка на папку Яндекс Диска, например "https://disk.yandex.ru/d/AbCdEf123"
 // Папка должна быть открыта по ссылке. Чтобы не использовать Диск, оставьте "".
-window.YANDEX_DISK = "https://disk.yandex.ru/d/Vu8sIPFObf4aEw";
+window.GOOGLE_API_KEY = "AIzaSyDNy6o9wLWnFongmE5cwD4_aPaw6dV2QDk";
+
+// 2. Вставьте ссылку на корневую папку Google Drive
+window.GOOGLE_DRIVE_FOLDER = "https://drive.google.com/drive/folders/18NU8WtlKqPLiC3dm5-Ply2tobk6J5xs3?usp=sharing";
 
 /* ------------------------------------------------------------
    Список для способа 2.

@@ -7,6 +7,9 @@
   --muted: #9d8e80;
   --amber: #ff8a1f;
   --amber-light: #ffa54d;
+  --on-amber: #1a0f06;        /* цвет текста на оранжевом фоне */
+
+  --radius: 6px;              /* скругление углов у фото и кнопок, 0 убирает скругление */
 
   --font-display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
   --font-text: "Newsreader", Georgia, "Times New Roman", serif;
@@ -22,9 +25,12 @@
 
 *, *::before, *::after { box-sizing: border-box; }
 
+/* Атрибут hidden должен прятать элемент, даже если у него задан display */
+[hidden] { display: none !important; }
+
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: 72px;
+  scroll-padding-top: 84px;   /* высота шапки, чтобы заголовки не прятались под ней */
 }
 
 body {
@@ -59,35 +65,56 @@ p { margin: 0 0 1.1em; }
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
-  padding: 18px var(--pad);
-  background: rgba(17, 13, 10, 0.92);
+  padding: 14px var(--pad);
+  background: rgba(17, 13, 10, 0.94);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--line);
 }
 
 .brand {
+  flex-shrink: 0;
   font-family: var(--font-display);
   font-weight: 600;
   font-size: 1.05rem;
   letter-spacing: -0.01em;
   text-decoration: none;
+  white-space: nowrap;
 }
 
+/* Кнопки навигации: подсвечена кнопка раздела, в котором вы сейчас находитесь */
 .topbar nav {
+  position: relative;
   display: flex;
-  gap: clamp(16px, 3vw, 32px);
+  gap: 8px;
   font-family: var(--font-display);
   font-weight: 500;
-  font-size: 0.98rem;
+  font-size: 0.95rem;
 }
 
 .topbar nav a {
+  flex: none;
+  padding: 0.5rem 1rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
   color: var(--muted);
+  line-height: 1.2;
   text-decoration: none;
-  transition: color 0.2s;
+  white-space: nowrap;
+  transition: color 0.2s, border-color 0.2s, background-color 0.2s;
 }
 
-.topbar nav a:hover { color: var(--amber); }
+.topbar nav a:hover {
+  color: var(--amber);
+  border-color: var(--amber);
+}
+
+.topbar nav a[aria-current] {
+  background: var(--amber);
+  border-color: var(--amber);
+  color: var(--on-amber);
+}
 
 /* ===== Вступление ===== */
 /* Три колонки, как в галерее: текст занимает две, фото ровно одну */
@@ -113,6 +140,7 @@ p { margin: 0 0 1.1em; }
   width: 100%;
   aspect-ratio: 4 / 5;
   object-fit: cover;
+  border-radius: var(--radius);
   background: var(--surface);
 }
 
@@ -181,7 +209,7 @@ p { margin: 0 0 1.1em; }
   margin: 0;
   padding: 0;
   border: 0;
-  border-radius: 0;
+  border-radius: var(--radius);
   -webkit-appearance: none;
   appearance: none;
   overflow: hidden;
@@ -192,11 +220,27 @@ p { margin: 0 0 1.1em; }
   text-align: left;
 }
 
+/* Фото растягивается на всю плитку, высота плитки задаётся только пропорцией */
 .tile img {
+  position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
   transition: opacity 0.2s;
+}
+
+/* Сообщение вместо галереи, если фото не найдены */
+.works-note {
+  grid-column: 1 / -1;
+  max-width: 60ch;
+  margin: 0;
+  padding: 1rem 1.2rem;
+  border: 1px solid var(--amber);
+  border-radius: var(--radius);
+  color: var(--text);
+  font-size: 1.05rem;
+  line-height: 1.5;
 }
 
 .tile:hover img { opacity: 0.8; }
@@ -272,7 +316,7 @@ p { margin: 0 0 1.1em; }
   color: #d3c5b6;
 }
 
-.mail {
+.contact-main {
   display: inline-block;
   margin: 0 0 1.8rem;
   border-bottom: 2px solid var(--amber);
@@ -286,7 +330,7 @@ p { margin: 0 0 1.1em; }
   transition: color 0.2s;
 }
 
-.mail:hover { color: var(--amber); }
+.contact-main:hover { color: var(--amber); }
 
 .links {
   display: flex;
@@ -318,6 +362,7 @@ p { margin: 0 0 1.1em; }
   width: 100%;
   aspect-ratio: var(--tile-ratio);
   object-fit: cover;
+  border-radius: var(--radius);
   background: var(--surface);
 }
 
@@ -391,6 +436,7 @@ p { margin: 0 0 1.1em; }
   max-width: 100%;
   max-height: calc(100dvh - 9rem);
   object-fit: contain;
+  border-radius: var(--radius);
 }
 
 .icon-btn {
@@ -442,22 +488,26 @@ p { margin: 0 0 1.1em; }
   }
 }
 
-/* Меню из пяти пунктов переносится на вторую строку */
-@media (max-width: 720px) {
-  html { scroll-padding-top: 112px; }
+/* Узкий экран: название сверху, кнопки навигации ниже одной строкой, которую можно листать пальцем */
+@media (max-width: 860px) {
+  html { scroll-padding-top: 108px; }
 
   .topbar {
     flex-direction: column;
-    align-items: flex-start;
-    gap: 0.4rem;
+    align-items: stretch;
+    gap: 10px;
     padding-block: 12px;
   }
 
   .topbar nav {
-    flex-wrap: wrap;
-    gap: 0.2rem 1.1rem;
-    font-size: 0.95rem;
+    margin-inline: calc(var(--gutter) * -1);
+    padding-inline: var(--gutter);
+    overflow-x: auto;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
   }
+
+  .topbar nav::-webkit-scrollbar { display: none; }
 }
 
 @media (max-width: 640px) {

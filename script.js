@@ -91,7 +91,132 @@
     gallery.appendChild(p);
   }
 
- 
+ /* ---------- Яндекс Диск ---------- */
+
+  // Разбираем ссылку. Подходит ссылка на папку и на папку внутри общей папки.
+  function parseYandexLink(raw) {
+    if (typeof raw !== "string" || !raw.trim()) return null;
+    const m = raw.trim().match(/^(https?:\/\/(?:disk(?:\.360)?\.yandex\.[a-z.]+|yadi\.sk)\/d\/[^\/?#]+)(\/[^?#]*)?/i);
+    if (!m) return { invalid: true };
+    let path = m[2] || "";
+    try { path = decodeURIComponent(path); } catch (e) { /* оставляем как есть */ }
+    return { key: m[1], path: path.replace(/\/+$/, "") };
+  }
+
+  function ydError(kind, status) {
+    const e = new Error("Яндекс Диск: " + kind + (status ? " " + status : ""));
+    e.kind = kind;
+    e.status = status || 0;
+    return e;
+  }
+
+  function fetchJson(address) {
+    const ctrl = window.AbortController ? new AbortController() : null;
+    const timer = setTimeout(function () { if (ctrl) ctrl.abort(); }, YD_TIMEOUT);
+
+    return fetch(address, ctrl ? { signal: ctrl.signal } : {}).then(function (res) {
+      clearTimeout(timer);
+      if (!res.ok) throw ydError("http", res.status);
+      return res.json().catch(function () { throw ydError("format"); });
+    }, function () {
+      clearTimeout(timer);
+      throw ydError("network");
+    });
+  }
+
+  // Один запрос списка: файлы и подпапки папки path, начиная с offset
+  function ydList(key, path, offset) {
+    const query = "public_key=" + encodeURIComponent(key) +
+      (path ? "&path=" + encodeURIComponent(path) : "") +
+      "&limit=" + YD_PAGE +
+      "&offset=" + offset +
+      "&sort=name" +
+      "&preview_size=" + YD_PREVIEW_SIZE;
+    return fetchJson(YD_API + "?" + query);
+  }
+
+  // Все элементы папки: запрашиваем по частям, пока не получим всё
+  function ydFolder(key, path) {
+    const items = [];
+
+    function page(offset) {
+      return ydList(key, path, offset).then(function (data) {
+        const emb = data && data._embedded;
+        if (!emb) throw ydError("badlink");
+        const got = emb.items || [];
+        got.forEach(function (it) { items.push(it); });
+
+        const next = offset + got.length;
+        const more = got.length > 0 && next < YD_MAX &&
+          (typeof emb.total === "number" ? next < emb.total : got.length >= YD_PAGE);
+        return more ? page(next) : items;
+      });
+    }
+
+    return page(0);
+  }
+
+  // Читаем папку: файлы в ней без темы, а подпапки первого уровня становятся темами
+  function loadYandex(src) {
+    // Из элементов папки оставляем только изображения, у которых есть превью
+    function toPhotos(items, category) {
+      const out = [];
+      items.forEach(function (it) {
+        if (!it || it.type !== "file" || !it.preview) return;
+        if (it.media_type && it.media_type !== "image") return;
+        if (it.mime_type && !/^image\//i.test(it.mime_type)) return;
+        out.push({ id: category + "/" + it.name, file: it.preview, category: category, failed: false });
+      });
+      return out;
+    }
+
+    return ydFolder(src.key, src.path).then(function (root) {
+      const dirs = root.filter(function (it) { return it && it.type === "dir"; });
+
+      return Promise.all(dirs.map(function (dir) {
+        return ydFolder(src.key, src.path + "/" + dir.name).then(function (items) {
+          return toPhotos(items, dir.name);
+        });
+      })).then(function (groups) {
+        // Сначала фото из самой папки, затем из подпапок в том порядке, в каком они лежат на Диске
+        return groups.reduce(function (all, g) { return all.concat(g); }, toPhotos(root, ""));
+      });
+    }).then(function (photos) {
+      if (!photos.length) throw ydError("empty");
+      return photos;
+    });
+  }
+
+  function ydMessage(err) {
+    switch (err && err.kind) {
+      case "badlink": return MSG_YD_BADLINK;
+      case "empty": return MSG_YD_EMPTY;
+      case "network": return MSG_YD_NETWORK;
+      case "http":
+        if (err.status === 403 || err.status === 404) return MSG_YD_NOTFOUND;
+        if (err.status === 429) return MSG_YD_LIMIT;
+        return MSG_YD_FAIL;
+      default: return MSG_YD_FAIL;
+    }
+  }
+
+  // Ссылки на превью у Диска временные. Если фото перестало открываться (например, страница долго
+  // была открыта), один раз заново читаем папку и подставляем свежие ссылки.
+  let refreshing = null;
+  let refreshedAt = 0;
+
+  function refreshLinks() {
+    if (!ydSource || ydSource.invalid) return Promise.reject(ydError("badlink"));
+    if (refreshing && Date.now() - refreshedAt < YD_REFRESH_PAUSE) return refreshing;
+
+    refreshedAt = Date.now();
+    refreshing = loadYandex(ydSource).then(function (fresh) {
+      const byId = {};
+      fresh.forEach(function (p) { byId[p.id] = p.file; });
+      PHOTOS.forEach(function (p) { if (byId[p.id]) p.file = byId[p.id]; });
+    });
+    return refreshing;
+  }
 
   /* ---------- Фильтры ---------- */
   function renderFilters() {
